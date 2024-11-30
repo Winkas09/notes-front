@@ -1,4 +1,21 @@
+import { useState, useEffect } from "react";
+import { LightModeIcon, DarkModeIcon } from "../utils/utils";
+
 export function Navbar() {
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [darkMode]);
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
   return (
     <nav className="relative shadow dark:bg-gray-800">
       <div className="container px-6 py-3 mx-auto md:flex">
@@ -9,6 +26,12 @@ export function Navbar() {
           <div className="flex flex-col px-2 -mx-4 md:flex-row md:mx-10 md:py-0">
             <a
               href="/"
+              className="px-2.5 py-2 text-gray-700 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 md:mx-2"
+            >
+              Home Page
+            </a>
+            <a
+              href="notes"
               className="px-2.5 py-2 text-gray-700 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 md:mx-2"
             >
               Notes
@@ -50,6 +73,13 @@ export function Navbar() {
               placeholder="Search"
             />
           </div>
+
+          <button
+            onClick={toggleDarkMode}
+            className="ml-4 px-4 py-2 text-gray-700 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+          >
+            {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
+          </button>
         </div>
       </div>
     </nav>

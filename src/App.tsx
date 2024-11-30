@@ -11,6 +11,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
+import HomePage from "./Pages/HomePage";
 
 const queryClient = new QueryClient({});
 
@@ -19,7 +20,8 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Navbar />
       <Routes>
-        <Route path="/" element={<NotesPage />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/notes" element={<NotesPage />} />
         <Route path="/categories" element={<CategoryPage />} />
         <Route path="/favorites" element={<FavoritePage />} />
       </Routes>
