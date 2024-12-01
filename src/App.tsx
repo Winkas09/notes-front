@@ -16,6 +16,7 @@ import NotePage from "./Pages/NotePage";
 import CategoryPage from "./Pages/CategoryPage";
 import NoteForm from "./components/notes/NoteForm";
 import CategoryForm from "./components/categories/CategoryForm";
+import EditNoteForm from "./components/notes/EditNoteForm";
 
 const queryClient = new QueryClient({});
 
@@ -28,6 +29,7 @@ function App() {
         <Route path="/notes" element={<NotesPage />} />
         <Route path="/note/:id" element={<NotePage />} />
         <Route path="/create-note" element={<NoteForm />} />
+        <Route path="/edit-note/:id" element={<EditNoteForm />} />
         <Route path="/categories" element={<CategoriesPage />} />
         <Route path="/create-category" element={<CategoryForm />} />
         <Route path="/category/:categoryId" element={<CategoryPage />} />

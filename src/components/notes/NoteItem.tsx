@@ -18,6 +18,10 @@ const NoteItem = ({ note }) => {
     });
   };
 
+  const editHandler = () => {
+    navigate(`/edit-note/${note._id}`);
+  };
+
   return (
     <div className="flex justify-center items-center p-20 m-20">
       <div className="p-14 m-8 w-[600px] border rounded-md bg-gray-400">
@@ -28,6 +32,12 @@ const NoteItem = ({ note }) => {
           className="p-4 m-4 bg-red-500 text-white rounded-md"
         >
           Delete
+        </button>
+        <button
+          onClick={editHandler}
+          className="p-4 m-4 bg-blue-500 text-white rounded-md"
+        >
+          Edit
         </button>
       </div>
     </div>
