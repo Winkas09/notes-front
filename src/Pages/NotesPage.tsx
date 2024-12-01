@@ -1,28 +1,27 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchNotes } from "../api/api";
+import NotesList from "../components/notes/NotesList";
 
 const NotesPage = () => {
   const { data, isLoading } = useQuery({
-    queryKey: ["todos"],
+    queryKey: ["notes"],
     queryFn: fetchNotes,
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center p-32 m-40">
+        <div
+          className="spinner-border animate-bounce w-40 h-40 border-8 rounded-full flex justify-center items-center"
+          role="status"
+        >
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
   }
 
-  return (
-    <div>
-      {data?.notes.map((note) => (
-        <div
-          className="p-14 m-6 w-[200px] border rounded-md bg-gray-400 justify-center align-middle"
-          key={note.id}
-        >
-          {note.title}
-        </div>
-      ))}
-    </div>
-  );
+  return <NotesList notes={data?.notes} />;
 };
 
 export default NotesPage;
