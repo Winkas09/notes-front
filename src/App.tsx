@@ -14,6 +14,7 @@ import {
 import HomePage from "./Pages/HomePage";
 import NotePage from "./Pages/NotePage";
 import CategoryPage from "./Pages/CategoryPage";
+import NoteForm from "./components/notes/NoteForm";
 
 const queryClient = new QueryClient({});
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/notes" element={<NotesPage />} />
         <Route path="/note/:id" element={<NotePage />} />
+        <Route path="/create-note" element={<NoteForm />} />
         <Route path="/categories" element={<CategoriesPage />} />
         <Route path="/category/:categoryId" element={<CategoryPage />} />
         <Route path="/favorites" element={<FavoritePage />} />

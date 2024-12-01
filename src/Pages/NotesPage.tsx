@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchNotes } from "../api/api";
-import { useNavigate } from "react-router-dom";
 import NotesList from "../components/notes/NotesList";
 
 const NotesPage = () => {

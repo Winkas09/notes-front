@@ -1,14 +1,8 @@
 import { useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { fetchNotesByCategoryId } from "../api/api";
-import NotesList from "../components/notes/NotesList";
+import CategoryItem from "../components/categories/CategoryItem";
 
 const CategoryPage = () => {
-  const { categoryId } = useParams();
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["notes", categoryId],
-    queryFn: () => fetchNotesByCategoryId(categoryId),
-  });
+  const { categoryId, isLoading } = useParams();
 
   if (isLoading) {
     return (
@@ -23,11 +17,7 @@ const CategoryPage = () => {
     );
   }
 
-  if (error) {
-    return <div>Error loading notes</div>;
-  }
-
-  return <NotesList notes={data?.notes} />;
+  return <CategoryItem categoryId={categoryId} />;
 };
 
 export default CategoryPage;

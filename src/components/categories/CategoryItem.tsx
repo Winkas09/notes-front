@@ -1,14 +1,16 @@
-import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { fetchNotesByCategoryId } from "../../api/api";
 import NotesList from "../notes/NotesList";
 
-const CategoryItem = () => {
-  const { categoryId } = useParams();
+const CategoryItem = ({ categoryId }) => {
+  const navigate = useNavigate();
   const { data, isLoading, error } = useQuery({
     queryKey: ["notes", categoryId],
     queryFn: () => fetchNotesByCategoryId(categoryId),
   });
+
+  console.log("🚀 ~ CategoryItem ~ categoryId:", categoryId);
 
   if (isLoading) {
     return (
@@ -27,7 +29,17 @@ const CategoryItem = () => {
     return <div>Error loading notes</div>;
   }
 
-  return <NotesList notes={data?.notes} />;
+  return (
+    <div>
+      <button
+        className="m-4 p-2 bg-gray-500 text-white rounded hover:bg-gray-700"
+        onClick={() => navigate("/categories")}
+      >
+        Back to Categories
+      </button>
+      <NotesList notes={data?.notes} />
+    </div>
+  );
 };
 
 export default CategoryItem;

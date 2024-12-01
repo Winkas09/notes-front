@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { LightModeIcon, DarkModeIcon } from "../utils/utils";
+import { NavLink } from "react-router-dom";
 
 export function Navbar() {
   const [darkMode, setDarkMode] = useState(false);
@@ -24,30 +25,36 @@ export function Navbar() {
           className="absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-gray-600 md:mt-0 md:p-0 md:top-0 md:relative md:opacity-100 md:translate-x-0 md:flex md:items-center md:justify-between ml-80"
         >
           <div className="flex flex-col px-2 -mx-4 md:flex-row md:mx-10 md:py-0">
-            <a
-              href="/"
+            <NavLink
+              to="/"
               className="px-2.5 py-2 text-gray-700 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 md:mx-2"
             >
               Home Page
-            </a>
-            <a
-              href="notes"
+            </NavLink>
+            <NavLink
+              to="notes"
               className="px-2.5 py-2 text-gray-700 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 md:mx-2"
             >
               Notes
-            </a>
-            <a
-              href="categories"
+            </NavLink>
+            <NavLink
+              to="categories"
               className="px-2.5 py-2 text-gray-700 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 md:mx-2"
             >
               Categories
-            </a>
-            <a
-              href="favorites"
+            </NavLink>
+            <NavLink
+              to="favorites"
               className="px-2.5 py-2 text-gray-700 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 md:mx-2"
             >
               Favorites
-            </a>
+            </NavLink>
+            <NavLink
+              to="create-note"
+              className="px-2.5 py-2 text-black transition-colors duration-300 transform rounded-lg dark:text-black hover:bg-gray-100 dark:hover:bg-red-500 md:mx-2 bg-red-300"
+            >
+              Create Note
+            </NavLink>
           </div>
 
           <div className="relative mt-4 md:mt-0">
