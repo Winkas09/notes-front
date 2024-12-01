@@ -15,7 +15,7 @@ const NotesPage = () => {
     <div>
       {data?.notes.map((note) => (
         <div
-          className="p-16 m-2 w-[200px] h-max-[200px] border rounded-md bg-red-400 justify-center align-middle"
+          className="p-14 m-6 w-[200px] border rounded-md bg-gray-400 justify-center align-middle"
           key={note.id}
         >
           {note.title}
