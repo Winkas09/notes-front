@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { fetchNotesByCategoryId } from "../api/api";
-import NotesList from "../components/notes/NotesList";
+import { fetchNotesByCategoryId } from "../../api/api";
+import NotesList from "../notes/NotesList";
 
-const CategoryPage = () => {
+const CategoryItem = () => {
   const { categoryId } = useParams();
   const { data, isLoading, error } = useQuery({
     queryKey: ["notes", categoryId],
@@ -30,4 +30,4 @@ const CategoryPage = () => {
   return <NotesList notes={data?.notes} />;
 };
 
-export default CategoryPage;
+export default CategoryItem;
