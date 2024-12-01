@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchNotes } from "../api/api";
+import NotesList from "../components/notes/NotesList";
 
 const NotesPage = () => {
   const { data, isLoading } = useQuery({
-    queryKey: ["todos"],
+    queryKey: ["notes"],
     queryFn: fetchNotes,
   });
 
@@ -20,18 +21,7 @@ const NotesPage = () => {
     );
   }
 
-  return (
-    <div>
-      {data?.notes.map((note) => (
-        <div
-          className="p-14 m-6 w-[200px] border rounded-md bg-gray-400 justify-center align-middle"
-          key={note.id}
-        >
-          {note.title}
-        </div>
-      ))}
-    </div>
-  );
+  return <NotesList notes={data?.notes} />;
 };
 
 export default NotesPage;
