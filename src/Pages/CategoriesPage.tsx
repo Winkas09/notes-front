@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchNotes } from "../api/api";
-import NotesList from "../components/notes/NotesList";
+import { fetchCategories } from "../api/api";
+import CategoryList from "../components/categories/CategoryList";
 
-const NotesPage = () => {
+const CategoriesPage = () => {
   const { data, isLoading } = useQuery({
-    queryKey: ["notes"],
-    queryFn: fetchNotes,
+    queryKey: ["categories"],
+    queryFn: fetchCategories,
   });
 
   if (isLoading) {
@@ -21,11 +21,7 @@ const NotesPage = () => {
     );
   }
 
-  return (
-    <div className="p-8 bg-gray-100 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <NotesList notes={data?.notes} />
-    </div>
-  );
+  return <CategoryList categories={data?.categories} />;
 };
 
-export default NotesPage;
+export default CategoriesPage;
