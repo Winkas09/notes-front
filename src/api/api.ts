@@ -30,14 +30,37 @@ export const addNote = async (note) => {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ title: note.title, body: note.content }),
+        body: JSON.stringify({ title: note.title, body: note.content, categoryId: note.categoryId }),
     });
     return response.json();
 }
 
+export const updateNote = async (note) => {
+    const response = await fetch(`${BASE_URL}/api/note/${note._id}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ title: note.title, body: note.body, categoryId: note.categoryId }),
+    });
+    return response.json();
+}
+
+export const addCategory = async (category) => {
+    const response = await fetch(`${BASE_URL}/api/category`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ title: category.title }),
+    });
+    return response.json();
+}
 export const deleteNote = async (id:string) => {
     const response = await fetch(`${BASE_URL}/api/note/${id}`, {
         method: 'DELETE',
     });
     return response.json();
 }
+
+

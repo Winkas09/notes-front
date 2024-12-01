@@ -1,14 +1,25 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useState } from "react";
-import { addNote, fetchCategories } from "../../api/api";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { fetchNoteById, updateNote, fetchCategories } from "../../api/api";
+import { useNavigate, useParams } from "react-router-dom";
 
-const NoteForm = () => {
+const EditNoteForm = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
 
+  const { data: noteData, isLoading: isNoteLoading } = useQuery({
+    queryKey: ["note", id],
+    queryFn: () => fetchNoteById(id),
+  });
+
+  const { data: categories, isLoading: isCategoriesLoading } = useQuery({
+    queryKey: ["categories"],
+    queryFn: fetchCategories,
+  });
+
   const { mutate } = useMutation({
-    mutationFn: addNote,
-    mutationKey: ["createNote"],
+    mutationFn: updateNote,
+    mutationKey: ["updateNote"],
   });
 
   const [formData, setFormData] = useState({
@@ -19,10 +30,15 @@ const NoteForm = () => {
 
   const [validationErrors, setValidationErrors] = useState({});
 
-  const { data: categories, isLoading: isCategoriesLoading } = useQuery({
-    queryKey: ["categories"],
-    queryFn: fetchCategories,
-  });
+  useEffect(() => {
+    if (noteData) {
+      setFormData({
+        title: noteData.note.title,
+        content: noteData.note.body,
+        categoryId: noteData.note.categoryId,
+      });
+    }
+  }, [noteData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -51,23 +67,34 @@ const NoteForm = () => {
     if (Object.keys(errors).length > 0) {
       setValidationErrors(errors);
     } else {
-      mutate(formData, {
-        onSuccess: () => {
-          navigate("/notes");
-        },
-      });
-      setFormData({
-        title: "",
-        content: "",
-        categoryId: "",
-      });
+      mutate(
+        { ...formData, _id: id },
+        {
+          onSuccess: () => {
+            navigate("/notes");
+          },
+        }
+      );
     }
   };
+
+  if (isNoteLoading || isCategoriesLoading) {
+    return (
+      <div className="flex justify-center items-center p-32 m-40">
+        <div
+          className="spinner-border animate-bounce w-40 h-40 border-8 rounded-full flex justify-center items-center"
+          role="status"
+        >
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <section className="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
       <h2 className="text-lg font-semibold text-gray-700 capitalize dark:text-white">
-        Add Note
+        Edit Note
       </h2>
 
       <form onSubmit={handleSubmit}>
@@ -149,4 +176,4 @@ const NoteForm = () => {
   );
 };
 
-export default NoteForm;
+export default EditNoteForm;
