@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { fetchNotesByCategoryId } from "../../api/api";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { fetchNotesByCategoryId, deleteCategory } from "../../api/api";
 import NotesList from "../notes/NotesList";
 
 const CategoryItem = ({ categoryId }) => {
@@ -11,6 +11,18 @@ const CategoryItem = ({ categoryId }) => {
   });
 
   console.log("🚀 ~ CategoryItem ~ categoryId:", categoryId);
+
+  const { mutate: removeCategory } = useMutation({
+    mutationFn: deleteCategory,
+    mutationKey: ["deleteCategory"],
+    onSuccess: () => {
+      navigate("/categories");
+    },
+  });
+
+  const deleteHandler = () => {
+    removeCategory(categoryId);
+  };
 
   if (isLoading) {
     return (
@@ -36,6 +48,12 @@ const CategoryItem = ({ categoryId }) => {
         onClick={() => navigate("/categories")}
       >
         Back to Categories
+      </button>
+      <button
+        className="m-4 p-2 bg-red-500 text-white rounded hover:bg-red-700"
+        onClick={deleteHandler}
+      >
+        Delete Category
       </button>
       <NotesList notes={data?.notes} />
     </div>

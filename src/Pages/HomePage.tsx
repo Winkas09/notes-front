@@ -2,7 +2,7 @@ import imageUrl from "../utils/utils";
 
 const HomePage = () => {
   return (
-    <div className="h-screen w-full overflow-hidden">
+    <div className="h-screen w-full overflow-hidden bg-cover">
       <div
         className="h-full w-full bg-cover bg-center bg-no-repeat bg-fixed"
         style={{
@@ -21,7 +21,7 @@ const HomePage = () => {
           </p>
         </div>
       </div>
-      <footer className="fixed bottom-0 w-full text-center p-4 bg-gray-600 text-white">
+      <footer className="fixed bottom-0 w-screen text-center p-4 bg-gray-600 text-white">
         Page created by Edvinas
       </footer>
     </div>

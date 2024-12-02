@@ -54,9 +54,6 @@ const EditNoteForm = () => {
     if (!formData.content.trim() || formData.content.length <= 3) {
       errors.content = "Content must be longer than 3 characters.";
     }
-    if (!formData.categoryId) {
-      errors.categoryId = "Category is required.";
-    }
 
     return errors;
   };
