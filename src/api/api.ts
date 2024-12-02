@@ -12,10 +12,6 @@ export const fetchNoteById = async (id:string) => {
     return data;
 };
 
-export const fetchCategories = async () => {
-    const response = await fetch(`${BASE_URL}/api/category`);
-    return response.json();
-};
 
 export const fetchNotesByCategoryId = async (categoryId:string) => {
     const response = await fetch(`${BASE_URL}/api/category/${categoryId}`);
@@ -46,6 +42,18 @@ export const updateNote = async (note) => {
     return response.json();
 }
 
+export const deleteNote = async (id:string) => {
+    const response = await fetch(`${BASE_URL}/api/note/${id}`, {
+        method: 'DELETE',
+    });
+    return response.json();
+}
+
+export const fetchCategories = async () => {
+    const response = await fetch(`${BASE_URL}/api/category`);
+    return response.json();
+};
+
 export const addCategory = async (category) => {
     const response = await fetch(`${BASE_URL}/api/category`, {
         method: 'POST',
@@ -56,8 +64,9 @@ export const addCategory = async (category) => {
     });
     return response.json();
 }
-export const deleteNote = async (id:string) => {
-    const response = await fetch(`${BASE_URL}/api/note/${id}`, {
+
+export const deleteCategory = async (id:string) => {
+    const response = await fetch(`${BASE_URL}/api/category/${id}`, {
         method: 'DELETE',
     });
     return response.json();

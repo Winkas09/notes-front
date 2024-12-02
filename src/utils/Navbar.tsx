@@ -23,7 +23,7 @@ export function Navbar() {
   };
 
   return (
-    <nav className="relative shadow bg-gray-600">
+    <nav className="relative shadow bg-gray-600 dark:bg-gray-800">
       <div className="container mx-auto px-6 py-3 md:flex md:justify-between md:items-center">
         <div className="flex justify-between items-center">
           <div className="text-xl font-bold text-white">Note App</div>
@@ -107,7 +107,7 @@ export function Navbar() {
 
             <input
               type="text"
-              className="w-96 py-2 pl-10 pr-20 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-blue-300"
+              className="min-w-4 py-2 pl-10 pr-10 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-blue-300"
               placeholder="Search"
             />
           </div>

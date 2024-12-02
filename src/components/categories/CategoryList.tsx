@@ -1,10 +1,24 @@
+import React from "react";
 import { useNavigate } from "react-router-dom";
+import CategorySkeleton from "../../utils/CategorySkeleton";
 
-const CategoryList = ({ categories }) => {
+const CategoryList = ({ categories, isLoading }) => {
   const navigate = useNavigate();
 
+  if (isLoading) {
+    return (
+      <div className="flex flex-wrap">
+        {Array(6)
+          .fill()
+          .map((_, index) => (
+            <CategorySkeleton key={index} />
+          ))}
+      </div>
+    );
+  }
+
   return (
-    <div>
+    <div className="flex flex-wrap">
       {categories.map((category) => (
         <div
           className="p-14 m-6 w-[200px] border rounded-md bg-gray-400 justify-center align-middle cursor-pointer hover:bg-gray-500 transition duration-300"

@@ -10,19 +10,6 @@ const CategoriesPage = () => {
     queryFn: fetchCategories,
   });
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center p-32 m-40">
-        <div
-          className="spinner-border animate-bounce w-40 h-40 border-8 rounded-full flex justify-center items-center"
-          role="status"
-        >
-          <span className="visually-hidden">Loading...</span>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div>
       <button
@@ -31,7 +18,7 @@ const CategoriesPage = () => {
       >
         Create category
       </button>
-      <CategoryList categories={data?.categories} />
+      <CategoryList categories={data?.categories || []} isLoading={isLoading} />
     </div>
   );
 };

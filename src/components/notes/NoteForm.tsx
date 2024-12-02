@@ -2,6 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { addNote, fetchCategories } from "../../api/api";
 import { useNavigate } from "react-router-dom";
+import styles from "../../styles/NoteForm.module.scss";
 
 const NoteForm = () => {
   const navigate = useNavigate();
@@ -65,63 +66,51 @@ const NoteForm = () => {
   };
 
   return (
-    <section className="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
-      <h2 className="text-lg font-semibold text-gray-700 capitalize dark:text-white">
-        Add Note
-      </h2>
+    <section className={styles["note-form"]}>
+      <h2>Add Note</h2>
 
       <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-          <div>
-            <label className="text-gray-700 dark:text-gray-200" htmlFor="title">
-              Title
-            </label>
+        <div className={styles["form-group"]}>
+          <div className={styles["form-control"]}>
+            <label htmlFor="title">Title</label>
             <input
               id="title"
               type="text"
               name="title"
               value={formData.title}
               onChange={handleChange}
-              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
             />
             {validationErrors.title && (
-              <p className="text-red-500">{validationErrors.title}</p>
+              <p className={styles["error-message"]}>
+                {validationErrors.title}
+              </p>
             )}
           </div>
 
-          <div>
-            <label
-              className="text-gray-700 dark:text-gray-200"
-              htmlFor="content"
-            >
-              Content
-            </label>
-            <input
+          <div
+            className={`${styles["form-control"]} ${styles["content-control"]}`}
+          >
+            <label htmlFor="content">Content</label>
+            <textarea
               id="content"
-              type="text"
               name="content"
               value={formData.content}
               onChange={handleChange}
-              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
             />
             {validationErrors.content && (
-              <p className="text-red-500">{validationErrors.content}</p>
+              <p className={styles["error-message"]}>
+                {validationErrors.content}
+              </p>
             )}
           </div>
 
-          <div>
-            <label
-              className="text-gray-700 dark:text-gray-200"
-              htmlFor="categoryId"
-            >
-              Category
-            </label>
+          <div className={styles["form-control"]}>
+            <label htmlFor="categoryId">Category</label>
             <select
               id="categoryId"
               name="categoryId"
               value={formData.categoryId}
               onChange={handleChange}
-              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
             >
               <option value="">Select a category</option>
               {categories?.categories.map((category) => (
@@ -131,18 +120,15 @@ const NoteForm = () => {
               ))}
             </select>
             {validationErrors.categoryId && (
-              <p className="text-red-500">{validationErrors.categoryId}</p>
+              <p className={styles["error-message"]}>
+                {validationErrors.categoryId}
+              </p>
             )}
           </div>
         </div>
 
-        <div className="flex justify-end mt-6">
-          <button
-            type="submit"
-            className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
-          >
-            Save
-          </button>
+        <div className={styles["submit-button"]}>
+          <button type="submit">Save</button>
         </div>
       </form>
     </section>

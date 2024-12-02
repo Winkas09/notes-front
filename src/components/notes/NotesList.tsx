@@ -1,11 +1,23 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
+import NoteSkeleton from "../../utils/NoteSkeleton";
 
-const NotesList = ({ notes }) => {
+const NotesList = ({ notes, isLoading }) => {
   const navigate = useNavigate();
 
+  if (isLoading) {
+    return (
+      <div className="flex flex-wrap">
+        {Array(6)
+          .fill(null)
+          .map((_, index) => (
+            <NoteSkeleton key={index} />
+          ))}
+      </div>
+    );
+  }
+
   return (
-    <div>
+    <div className="flex flex-wrap">
       {notes.map((note) => (
         <div
           className="p-14 m-6 w-[200px] border rounded-md bg-gray-400 justify-center align-middle cursor-pointer hover:bg-gray-500 transition duration-300"
