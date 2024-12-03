@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { fetchNotesByCategoryId, deleteCategory } from "../../api/api";
 import NotesList from "../notes/NotesList";
+import { useState } from "react";
+import Modal from "../../utils/Modal";
 
 const CategoryItem = ({ categoryId }) => {
   const navigate = useNavigate();
@@ -20,8 +22,19 @@ const CategoryItem = ({ categoryId }) => {
     },
   });
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const deleteHandler = () => {
+    setIsModalOpen(true);
+  };
+
+  const confirmDeleteHandler = () => {
     removeCategory(categoryId);
+    setIsModalOpen(false);
+  };
+
+  const closeModalHandler = () => {
+    setIsModalOpen(false);
   };
 
   if (isLoading) {
@@ -56,6 +69,12 @@ const CategoryItem = ({ categoryId }) => {
         Delete Category
       </button>
       <NotesList notes={data?.notes} />
+      <Modal
+        isOpen={isModalOpen}
+        onClose={closeModalHandler}
+        onConfirm={confirmDeleteHandler}
+        message="Are you sure you want to delete this category?"
+      />
     </div>
   );
 };

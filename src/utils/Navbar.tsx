@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import { LightModeIcon, DarkModeIcon } from "../utils/utils";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { FaSearch } from "react-icons/fa";
 
 export function Navbar() {
   const [darkMode, setDarkMode] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (darkMode) {
@@ -20,6 +23,16 @@ export function Navbar() {
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (!searchQuery.trim()) {
+      navigate(`/search?error=empty`);
+      return;
+    }
+    navigate(`/search?query=${searchQuery}`);
+    setSearchQuery("");
   };
 
   return (
@@ -88,7 +101,10 @@ export function Navbar() {
             </NavLink>
           </div>
 
-          <div className="relative mt-4 md:mt-0">
+          <form
+            onSubmit={handleSearch}
+            className="relative mt-4 md:mt-0 flex items-center"
+          >
             <span className="absolute inset-y-0 left-0 flex items-center pl-3">
               <svg
                 className="w-5 h-5 text-gray-400"
@@ -109,14 +125,26 @@ export function Navbar() {
               type="text"
               className="min-w-4 py-2 pl-10 pr-10 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-blue-300"
               placeholder="Search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
-          </div>
+            <button
+              type="submit"
+              className="ml-2 p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:bg-blue-700"
+            >
+              <FaSearch />
+            </button>
+          </form>
 
           <button
             onClick={toggleDarkMode}
-            className="ml-4 text-gray-700 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+            className="ml-4 p-2 text-gray-700 transition-colors duration-300 transform rounded-full dark:text-gray-200 bg-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700"
           >
-            {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
+            {darkMode ? (
+              <LightModeIcon size={32} />
+            ) : (
+              <DarkModeIcon size={32} />
+            )}
           </button>
         </div>
       </div>
