@@ -56,33 +56,37 @@ const NoteItem = ({ note, category, isFavorite }) => {
   return (
     <div className="flex justify-center items-center p-20 m-20">
       <div className="p-14 m-8 w-[600px] border rounded-md bg-gray-400">
-        <div className="flex justify-between items-center">
-          <h1 className="text-3xl font-bold">{note.title}</h1>
+        <div className="flex justify-center items-center">
+          <h1 className="text-3xl font-bold text-center p-2 m-2">
+            {note.title}
+          </h1>
           <button onClick={toggleFavoriteHandler} className="text-red-500">
-            {isFavorite ? <FaHeart size={24} /> : <FaRegHeart size={24} />}
+            {isFavorite ? <FaHeart size={32} /> : <FaRegHeart size={32} />}
           </button>
         </div>
-        <p className="text-lg">{note.body}</p>
+        <p className="text-lg p-4 m-2">{note.body}</p>
         {category && (
-          <p className="text-md text-gray-700">Category: {category.title}</p>
+          <p className="text-md font-bold text-gray-700 p-2 m-2">
+            Category: {category.title}
+          </p>
         )}
-        <div className="flex space-x-4">
+        <div className="flex justify-around space-x-5">
           <button
             onClick={deleteHandler}
-            className="p-4 m-4 bg-red-500 text-white rounded-md"
+            className="flex-1 p-2 m-2 bg-red-500 text-white rounded-md hover:bg-red-700 transition duration-300 ease-in-out transform hover:scale-105"
           >
             Delete
           </button>
           <button
             onClick={editHandler}
-            className="p-4 m-4 bg-blue-500 text-white rounded-md"
+            className="flex-1 p-2 m-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-105"
           >
             Edit
           </button>
           {isFavorite && (
             <button
               onClick={backToFavoritesHandler}
-              className="p-4 m-4 bg-green-500 text-white rounded-md"
+              className="flex-1 p-2 m-2 bg-green-500 text-white rounded-md hover:bg-green-700 transition duration-300 ease-in-out transform hover:scale-105"
             >
               Back to Favorites
             </button>

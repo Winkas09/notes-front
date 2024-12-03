@@ -36,8 +36,8 @@ const FavoritePage = () => {
     return (
       <div className="flex justify-center items-center p-32 m-40">
         <div className="animate-pulse">
-          <div className="h-10 bg-gray-500 rounded w-3/4 mb-4"></div>
-          <div className="h-5 bg-gray-500 rounded w-1/2"></div>
+          <div className="h-10 bg-gray-500 rounded w-3/4 mb-4 shadow-lg"></div>
+          <div className="h-5 bg-gray-500 rounded w-1/2 shadow-lg"></div>
         </div>
       </div>
     );
@@ -48,7 +48,7 @@ const FavoritePage = () => {
   }
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="p-4 bg-gray-300 dark:bg-gray-600 min-h-screen">
       <h1 className="text-3xl font-bold mb-6">Favorites</h1>
       <FavoritesList favorites={favoritesWithTitles} />
     </div>

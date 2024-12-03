@@ -21,7 +21,7 @@ const CategoryList = ({ categories, isLoading }) => {
     <div className="flex flex-wrap">
       {categories.map((category) => (
         <div
-          className="p-14 m-6 w-[200px] border rounded-md bg-gray-400 justify-center align-middle cursor-pointer hover:bg-gray-500 transition duration-300"
+          className="p-14 m-6 w-auto border rounded-md bg-gray-400 justify-center align-middle cursor-pointer font-bold transition duration-300 transform hover:bg-gray-600 dark:bg-gray-400 dark:hover:bg-gray-300 shadow-lg hover:shadow-2xl hover:scale-105 hover:rotate-1"
           key={category._id}
           onClick={() => navigate(`/category/${category._id}`)}
         >

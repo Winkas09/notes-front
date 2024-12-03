@@ -39,10 +39,6 @@ const NoteForm = () => {
     if (!formData.content.trim() || formData.content.length <= 3) {
       errors.content = "Content must be longer than 3 characters.";
     }
-    if (!formData.categoryId) {
-      errors.categoryId = "Category is required.";
-    }
-
     return errors;
   };
 
@@ -51,84 +47,103 @@ const NoteForm = () => {
     const errors = validateForm();
     if (Object.keys(errors).length > 0) {
       setValidationErrors(errors);
-    } else {
-      mutate(formData, {
-        onSuccess: () => {
-          navigate("/notes");
-        },
-      });
-      setFormData({
-        title: "",
-        content: "",
-        categoryId: "",
-      });
+      return;
     }
+    mutate(formData, {
+      onSuccess: () => {
+        navigate("/notes");
+      },
+    });
   };
 
   return (
-    <section className={styles["note-form"]}>
-      <h2>Add Note</h2>
-
-      <form onSubmit={handleSubmit}>
-        <div className={styles["form-group"]}>
-          <div className={styles["form-control"]}>
-            <label htmlFor="title">Title</label>
-            <input
-              id="title"
-              type="text"
-              name="title"
-              value={formData.title}
-              onChange={handleChange}
-            />
-            {validationErrors.title && (
-              <p className={styles["error-message"]}>
-                {validationErrors.title}
-              </p>
-            )}
-          </div>
-
-          <div
-            className={`${styles["form-control"]} ${styles["content-control"]}`}
+    <section className="flex justify-center items-center min-h-screen bg-gray-300 dark:bg-gray-600 transition duration-500">
+      <form
+        className="bg-white dark:bg-gray-700 p-8 rounded-lg shadow-lg w-full max-w-md transform transition duration-500 hover:scale-105"
+        onSubmit={handleSubmit}
+      >
+        <h2 className="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-white">
+          Create Note
+        </h2>
+        <div className="mb-4">
+          <label
+            className="block text-gray-700 dark:text-gray-300 mb-2"
+            htmlFor="title"
           >
-            <label htmlFor="content">Content</label>
-            <textarea
-              id="content"
-              name="content"
-              value={formData.content}
-              onChange={handleChange}
-            />
-            {validationErrors.content && (
-              <p className={styles["error-message"]}>
-                {validationErrors.content}
-              </p>
-            )}
-          </div>
-
-          <div className={styles["form-control"]}>
-            <label htmlFor="categoryId">Category</label>
-            <select
-              id="categoryId"
-              name="categoryId"
-              value={formData.categoryId}
-              onChange={handleChange}
-            >
-              <option value="">Select a category</option>
-              {categories?.categories.map((category) => (
+            Title
+          </label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            value={formData.title}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-600 dark:text-white"
+          />
+          {validationErrors.title && (
+            <p className="text-red-500 text-sm mt-1">
+              {validationErrors.title}
+            </p>
+          )}
+        </div>
+        <div className="mb-4">
+          <label
+            className="block text-gray-700 dark:text-gray-300 mb-2"
+            htmlFor="content"
+          >
+            Content
+          </label>
+          <textarea
+            id="content"
+            name="content"
+            value={formData.content}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-600 dark:text-white"
+          />
+          {validationErrors.content && (
+            <p className="text-red-500 text-sm mt-1">
+              {validationErrors.content}
+            </p>
+          )}
+        </div>
+        <div className="mb-4">
+          <label
+            className="block text-gray-700 dark:text-gray-300 mb-2"
+            htmlFor="categoryId"
+          >
+            Category
+          </label>
+          <select
+            id="categoryId"
+            name="categoryId"
+            value={formData.categoryId}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-600 dark:text-white"
+          >
+            <option value="">Select a category</option>
+            {isCategoriesLoading ? (
+              <option>Loading...</option>
+            ) : (
+              categories?.categories.map((category) => (
                 <option key={category._id} value={category._id}>
                   {category.title}
                 </option>
-              ))}
-            </select>
-            {validationErrors.categoryId && (
-              <p className={styles["error-message"]}>
-                {validationErrors.categoryId}
-              </p>
+              ))
             )}
-          </div>
+          </select>
+          {validationErrors.categoryId && (
+            <p className="text-red-500 text-sm mt-1">
+              {validationErrors.categoryId}
+            </p>
+          )}
         </div>
-
-        <div className={styles["submit-button"]}>
-          <button type="submit">Save</button>
+        <div className="flex justify-center">
+          <button
+            type="submit"
+            className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105"
+          >
+            Save
+          </button>
         </div>
       </form>
     </section>
