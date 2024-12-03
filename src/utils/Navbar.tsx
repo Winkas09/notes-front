@@ -114,9 +114,13 @@ export function Navbar() {
 
           <button
             onClick={toggleDarkMode}
-            className="ml-4 text-gray-700 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+            className="ml-4 p-2 text-gray-700 transition-colors duration-300 transform rounded-full dark:text-gray-200 bg-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700"
           >
-            {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
+            {darkMode ? (
+              <LightModeIcon size={32} />
+            ) : (
+              <DarkModeIcon size={32} />
+            )}
           </button>
         </div>
       </div>

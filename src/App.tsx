@@ -11,7 +11,7 @@ import NoteForm from "./components/notes/NoteForm";
 import CategoryForm from "./components/categories/CategoryForm";
 import EditNoteForm from "./components/notes/EditNoteForm";
 import { Provider } from "react-redux";
-import store from "./store/store";
+import store from "./theme/store";
 import {
   useQuery,
   useMutation,
@@ -19,12 +19,13 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
+import { ThemeProvider } from "./theme/ThemeContext";
 
 const queryClient = new QueryClient({});
 
 function App() {
   return (
-    <Provider store={store}>
+    <ThemeProvider>
       <QueryClientProvider client={queryClient}>
         <Navbar />
         <Routes>
@@ -39,7 +40,7 @@ function App() {
           <Route path="/favorites" element={<FavoritePage />} />
         </Routes>
       </QueryClientProvider>
-    </Provider>
+    </ThemeProvider>
   );
 }
 

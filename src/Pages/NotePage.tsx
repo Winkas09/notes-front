@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { fetchNoteById, fetchCategories } from "../api/api";
+import { fetchNoteById, fetchCategories, fetchFavorites } from "../api/api";
 import NoteItem from "../components/notes/NoteItem";
 import { noteImgUrl } from "../utils/utils";
 
@@ -25,7 +25,16 @@ const NotePage = () => {
     queryFn: fetchCategories,
   });
 
-  if (isNoteLoading || isCategoriesLoading) {
+  const {
+    data: favoritesData,
+    isLoading: isFavoritesLoading,
+    error: favoritesError,
+  } = useQuery({
+    queryKey: ["favorites"],
+    queryFn: fetchFavorites,
+  });
+
+  if (isNoteLoading || isCategoriesLoading || isFavoritesLoading) {
     return (
       <div className="flex justify-center items-center p-32 m-40">
         <div className="animate-pulse">
@@ -36,13 +45,16 @@ const NotePage = () => {
     );
   }
 
-  if (noteError || categoriesError) {
+  if (noteError || categoriesError || favoritesError) {
     return <div>Error loading note or categories</div>;
   }
 
   const note = noteData.note;
   const category = categoriesData.categories.find(
     (cat) => cat._id === note.categoryId
+  );
+  const isFavorite = favoritesData.favorites.some(
+    (fav) => fav.noteId === note._id
   );
 
   return (
@@ -61,7 +73,7 @@ const NotePage = () => {
       >
         Back to Notes
       </button>
-      <NoteItem note={note} category={category} />
+      <NoteItem note={note} category={category} isFavorite={isFavorite} />
     </div>
   );
 };

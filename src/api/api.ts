@@ -72,4 +72,21 @@ export const deleteCategory = async (id:string) => {
     return response.json();
 }
 
+export const fetchFavorites = async () => {
+    const response = await fetch(`${BASE_URL}/api/favorites`);
+    return response.json();
+}
+
+export const toggleFavorite = async ({ noteId }) => {
+    const response = await fetch(`${BASE_URL}/api/favorites/toggle`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ noteId }),
+    });
+    return response.json();
+
+}
+
 
