@@ -21,7 +21,7 @@ const HomePage = () => {
           </p>
         </div>
       </div>
-      <footer className="fixed bottom-0 w-screen text-center p-4 bg-gray-600 text-white">
+      <footer className="fixed bottom-0 w-screen text-center p-4 bg-gray-600 text-white dark:bg-gray-800">
         Page created by Edvinas
       </footer>
     </div>

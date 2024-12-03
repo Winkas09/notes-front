@@ -20,7 +20,7 @@ const NotesList = ({ notes, isLoading }) => {
     <div className="flex flex-wrap">
       {notes.map((note) => (
         <div
-          className="p-14 m-6 w-[200px] border rounded-md bg-gray-400 justify-center align-middle cursor-pointer hover:bg-gray-500 transition duration-300"
+          className="p-14 m-6 w-auto border rounded-md bg-gray-400 justify-center align-middle cursor-pointer font-bold hover:bg-gray-600 transition duration-300 dark:bg-gray-400 dark:hover:bg-gray-300"
           key={note._id}
           onClick={() => navigate(`/note/${note._id}`)}
         >

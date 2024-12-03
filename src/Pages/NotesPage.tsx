@@ -8,7 +8,11 @@ const NotesPage = () => {
     queryFn: fetchNotes,
   });
 
-  return <NotesList notes={data?.notes || []} isLoading={isLoading} />;
+  return (
+    <div className="p-4 bg-gray-300 dark:bg-gray-600 min-h-screen">
+      <NotesList notes={data?.notes || []} isLoading={isLoading} />
+    </div>
+  );
 };
 
 export default NotesPage;

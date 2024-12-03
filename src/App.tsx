@@ -10,8 +10,6 @@ import CategoryPage from "./Pages/CategoryPage";
 import NoteForm from "./components/notes/NoteForm";
 import CategoryForm from "./components/categories/CategoryForm";
 import EditNoteForm from "./components/notes/EditNoteForm";
-import { Provider } from "react-redux";
-import store from "./theme/store";
 import {
   useQuery,
   useMutation,
@@ -20,6 +18,7 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { ThemeProvider } from "./theme/ThemeContext";
+import SearchResultsPage from "./Pages/SearchResultsPage";
 
 const queryClient = new QueryClient({});
 
@@ -38,6 +37,7 @@ function App() {
           <Route path="/create-category" element={<CategoryForm />} />
           <Route path="/category/:categoryId" element={<CategoryPage />} />
           <Route path="/favorites" element={<FavoritePage />} />
+          <Route path="/search" element={<SearchResultsPage />} />
         </Routes>
       </QueryClientProvider>
     </ThemeProvider>
