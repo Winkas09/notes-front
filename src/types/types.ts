@@ -13,7 +13,7 @@ export type Category = {
     title: string;
     body?: string;
     content: string;
-    categoryId: string;
+    categoryId?: string;
   };
   
   export type ThemeState = {

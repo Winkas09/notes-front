@@ -2,11 +2,11 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { ChangeEventHandler, FormEvent, useState } from "react";
 import { addNote, fetchCategories } from "../../api/api";
 import { useNavigate } from "react-router-dom";
-import { Category } from "../../utils/types";
+import { Category } from "../../types/types";
 
 type FormType = {
-  title?: string;
-  content?: string;
+  title: string;
+  content: string;
   categoryId?: string;
 };
 
@@ -18,13 +18,15 @@ const NoteForm = () => {
     mutationKey: ["createNote"],
   });
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormType>({
     title: "",
     content: "",
     categoryId: "",
   });
 
-  const [validationErrors, setValidationErrors] = useState<FormType>({});
+  const [validationErrors, setValidationErrors] = useState<Partial<FormType>>(
+    {}
+  );
 
   const { data: categories, isLoading: isCategoriesLoading } = useQuery({
     queryKey: ["categories"],
@@ -40,11 +42,11 @@ const NoteForm = () => {
   };
 
   const validateForm = () => {
-    const errors: FormType = {};
-    if (!formData.title.trim() || formData.title.length <= 3) {
+    const errors: Partial<FormType> = {};
+    if (!formData?.title?.trim() || formData.title.length <= 3) {
       errors.title = "Title must be longer than 3 characters.";
     }
-    if (!formData.content.trim() || formData.content.length <= 3) {
+    if (!formData?.content?.trim() || formData.content.length <= 3) {
       errors.content = "Content must be longer than 3 characters.";
     }
     return errors;

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import NoteSkeleton from "../../utils/NoteSkeleton";
-import { Note } from "../../utils/types";
+import { Note } from "../../types/types";
 
 interface NotesListProps {
   notes: Array<Note>;

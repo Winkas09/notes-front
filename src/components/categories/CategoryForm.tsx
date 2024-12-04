@@ -1,10 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
-import { FormEvent, useState } from "react";
+import { ChangeEventHandler, FormEvent, useState } from "react";
 import { addCategory } from "../../api/api";
 import { useNavigate } from "react-router-dom";
 
 type FormType = {
-  title?: string;
+  title: string;
 };
 
 const CategoryForm = () => {
@@ -19,16 +19,20 @@ const CategoryForm = () => {
     title: "",
   });
 
-  const [validationErrors, setValidationErrors] = useState({});
+  const [validationErrors, setValidationErrors] = useState<Partial<FormType>>(
+    {}
+  );
 
-  const handleChange = (e) => {
+  const handleChange: ChangeEventHandler<
+    HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+  > = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
     setValidationErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
   };
 
   const validateForm = () => {
-    const errors: FormType = {};
+    const errors: Partial<FormType> = {};
     if (
       !formData?.title?.trim() ||
       (formData?.title?.length && formData?.title?.length <= 3)
@@ -76,9 +80,9 @@ const CategoryForm = () => {
               onChange={handleChange}
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
             />
-            {validationErrors.title && (
+            {validationErrors?.title && (
               <p className="text-red-500 text-sm mt-1">
-                {validationErrors.title}
+                {validationErrors?.title}
               </p>
             )}
           </div>

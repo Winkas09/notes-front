@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useState, useEffect, ChangeEventHandler, FormEvent } from "react";
 import { fetchNoteById, updateNote, fetchCategories } from "../../api/api";
 import { useNavigate, useParams } from "react-router-dom";
-import { Category } from "../../utils/types";
+import { Category } from "../../types/types";
 
 type FormType = {
   title?: string;
@@ -73,14 +73,15 @@ const EditNoteForm = () => {
     if (Object.keys(errors).length > 0) {
       setValidationErrors(errors);
     } else {
-      mutate(
-        { ...formData, _id: id },
-        {
-          onSuccess: () => {
-            navigate("/notes");
-          },
-        }
-      );
+      if (id)
+        mutate(
+          { ...formData, _id: id },
+          {
+            onSuccess: () => {
+              navigate("/notes");
+            },
+          }
+        );
     }
   };
 

@@ -4,7 +4,7 @@ import CategoryItem from "../components/categories/CategoryItem";
 const CategoryPage = () => {
   const { categoryId, isLoading } = useParams();
 
-  if (isLoading) {
+  if (isLoading || !categoryId) {
     return (
       <div className="flex justify-center items-center p-32 m-40">
         <div

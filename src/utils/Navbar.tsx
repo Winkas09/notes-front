@@ -26,7 +26,7 @@ export function Navbar() {
     setIsOpen(!isOpen);
   };
 
-  const handleSearch = (e) => {
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!searchQuery.trim()) {
       navigate(`/search?error=empty`);

@@ -1,5 +1,5 @@
 const BASE_URL = 'http://localhost:3000';
-import { Category, Favorite, Note } from "../utils/types";
+import { Category, Favorite, Note } from "../types/types";
 
 
 export const fetchNotes = async () => {
@@ -7,7 +7,7 @@ export const fetchNotes = async () => {
     return response.json();
 };
 
-export const fetchNoteById = async (id:string) => {
+export const fetchNoteById = async (id?:string) => {
     const response = await fetch(`${BASE_URL}/api/note/${id}`);
     const data = await response.json();
     console.log("Fetched note data:", data); 
@@ -22,7 +22,7 @@ export const fetchNotesByCategoryId = async (categoryId:string) => {
     return data;
 };
 
-export const addNote = async (note: Note) => {
+export const addNote = async (note: Pick<Note,"title" | "content" | "categoryId">) => {
     const response = await fetch(`${BASE_URL}/api/note`, {
         method: 'POST',
         headers: {
@@ -56,7 +56,7 @@ export const fetchCategories = async () => {
     return response.json();
 };
 
-export const addCategory = async (category: Category) => {
+export const addCategory = async (category: Pick<Category, "title">) => {
     const response = await fetch(`${BASE_URL}/api/category`, {
         method: 'POST',
         headers: {
@@ -79,7 +79,7 @@ export const fetchFavorites = async () => {
     return response.json();
 }
 
-export const toggleFavorite = async ({ noteId }: Favorite) => {
+export const toggleFavorite = async ({ noteId }: Pick<Favorite, "noteId">) => {
     const response = await fetch(`${BASE_URL}/api/favorites/toggle`, {
         method: 'POST',
         headers: {

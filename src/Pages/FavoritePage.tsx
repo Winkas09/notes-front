@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchFavorites, fetchNoteById } from "../api/api";
 import FavoritesList from "../components/favorites/FavoritesList";
-import { useNavigate } from "react-router-dom";
-import { Favorite } from "../utils/types";
+import { Favorite } from "../types/types";
 
 const FavoritePage = () => {
-  const navigate = useNavigate();
   const { data, isLoading, error } = useQuery({
     queryKey: ["favorites"],
     queryFn: fetchFavorites,
