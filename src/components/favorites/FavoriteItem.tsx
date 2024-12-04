@@ -1,6 +1,11 @@
 import { useNavigate } from "react-router-dom";
+import { Favorite } from "../../utils/types";
 
-const FavoriteItem = ({ favorite }) => {
+interface FavoriteItemProps {
+  favorite: Favorite & { noteTitle?: string };
+}
+
+const FavoriteItem: React.FC<FavoriteItemProps> = ({ favorite }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -13,7 +18,7 @@ const FavoriteItem = ({ favorite }) => {
         className="p-14 m-6 w-auto border rounded-md bg-gray-400 justify-center align-middle cursor-pointer font-bold transition duration-300 transform hover:bg-gray-600 dark:bg-gray-400 dark:hover:bg-gray-300 shadow-lg hover:shadow-2xl hover:scale-105 hover:rotate-1"
         onClick={handleClick}
       >
-        <p className="text-lg font-semibold text-gray-900 dark:text-white">
+        <p className="text-lg font-semibold text-gray-900 dark:text-black">
           {favorite.noteTitle}
         </p>
       </div>

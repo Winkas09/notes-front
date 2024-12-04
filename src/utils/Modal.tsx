@@ -1,4 +1,16 @@
-const Modal = ({ isOpen, onClose, onConfirm, message }) => {
+type ModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+  message: string;
+};
+
+const Modal: React.FC<ModalProps> = ({
+  isOpen,
+  onClose,
+  onConfirm,
+  message,
+}) => {
   if (!isOpen) return null;
 
   return (

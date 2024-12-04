@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchFavorites, fetchNoteById } from "../api/api";
 import FavoritesList from "../components/favorites/FavoritesList";
 import { useNavigate } from "react-router-dom";
+import { Favorite } from "../utils/types";
 
 const FavoritePage = () => {
   const navigate = useNavigate();
@@ -11,13 +12,15 @@ const FavoritePage = () => {
     queryFn: fetchFavorites,
   });
 
-  const [favoritesWithTitles, setFavoritesWithTitles] = useState([]);
+  const [favoritesWithTitles, setFavoritesWithTitles] = useState<
+    Array<Favorite>
+  >([]);
 
   useEffect(() => {
     const fetchTitles = async () => {
       if (data?.favorites) {
         const favoritesWithTitles = await Promise.all(
-          data.favorites.map(async (favorite) => {
+          data.favorites.map(async (favorite: Favorite) => {
             const noteData = await fetchNoteById(favorite.noteId);
             return {
               ...favorite,

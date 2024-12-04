@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { LightModeIcon, DarkModeIcon } from "../utils/utils";
 import { NavLink, useNavigate } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
+import styles from "../styles/NavBar.module.scss";
 
 export function Navbar() {
   const [darkMode, setDarkMode] = useState(false);
@@ -128,10 +129,7 @@ export function Navbar() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <button
-              type="submit"
-              className="ml-2 p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:bg-blue-700"
-            >
+            <button type="submit" className={styles["search-button"]}>
               <FaSearch />
             </button>
           </form>

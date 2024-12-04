@@ -1,7 +1,14 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useState, useEffect } from "react";
+import { useState, useEffect, ChangeEventHandler, FormEvent } from "react";
 import { fetchNoteById, updateNote, fetchCategories } from "../../api/api";
 import { useNavigate, useParams } from "react-router-dom";
+import { Category } from "../../utils/types";
+
+type FormType = {
+  title?: string;
+  content?: string;
+  categoryId?: string;
+};
 
 const EditNoteForm = () => {
   const { id } = useParams();
@@ -28,7 +35,7 @@ const EditNoteForm = () => {
     categoryId: "",
   });
 
-  const [validationErrors, setValidationErrors] = useState({});
+  const [validationErrors, setValidationErrors] = useState<FormType>({});
 
   useEffect(() => {
     if (noteData) {
@@ -40,14 +47,16 @@ const EditNoteForm = () => {
     }
   }, [noteData]);
 
-  const handleChange = (e) => {
+  const handleChange: ChangeEventHandler<
+    HTMLInputElement | HTMLSelectElement
+  > = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
     setValidationErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
   };
 
   const validateForm = () => {
-    const errors = {};
+    const errors: FormType = {};
     if (!formData.title.trim() || formData.title.length <= 3) {
       errors.title = "Title must be longer than 3 characters.";
     }
@@ -58,7 +67,7 @@ const EditNoteForm = () => {
     return errors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const errors = validateForm();
     if (Object.keys(errors).length > 0) {
@@ -148,7 +157,7 @@ const EditNoteForm = () => {
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
             >
               <option value="">Select a category</option>
-              {categories?.categories.map((category) => (
+              {categories?.categories.map((category: Category) => (
                 <option key={category._id} value={category._id}>
                   {category.title}
                 </option>

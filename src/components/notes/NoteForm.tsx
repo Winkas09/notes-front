@@ -1,8 +1,14 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { ChangeEventHandler, FormEvent, useState } from "react";
 import { addNote, fetchCategories } from "../../api/api";
 import { useNavigate } from "react-router-dom";
-import styles from "../../styles/NoteForm.module.scss";
+import { Category } from "../../utils/types";
+
+type FormType = {
+  title?: string;
+  content?: string;
+  categoryId?: string;
+};
 
 const NoteForm = () => {
   const navigate = useNavigate();
@@ -18,21 +24,23 @@ const NoteForm = () => {
     categoryId: "",
   });
 
-  const [validationErrors, setValidationErrors] = useState({});
+  const [validationErrors, setValidationErrors] = useState<FormType>({});
 
   const { data: categories, isLoading: isCategoriesLoading } = useQuery({
     queryKey: ["categories"],
     queryFn: fetchCategories,
   });
 
-  const handleChange = (e) => {
+  const handleChange: ChangeEventHandler<
+    HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+  > = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
     setValidationErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
   };
 
   const validateForm = () => {
-    const errors = {};
+    const errors: FormType = {};
     if (!formData.title.trim() || formData.title.length <= 3) {
       errors.title = "Title must be longer than 3 characters.";
     }
@@ -42,7 +50,7 @@ const NoteForm = () => {
     return errors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const errors = validateForm();
     if (Object.keys(errors).length > 0) {
@@ -124,7 +132,7 @@ const NoteForm = () => {
             {isCategoriesLoading ? (
               <option>Loading...</option>
             ) : (
-              categories?.categories.map((category) => (
+              categories?.categories.map((category: Category) => (
                 <option key={category._id} value={category._id}>
                   {category.title}
                 </option>

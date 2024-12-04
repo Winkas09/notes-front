@@ -1,15 +1,23 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import CategorySkeleton from "../../utils/CategorySkeleton";
+import { Category } from "../../utils/types";
 
-const CategoryList = ({ categories, isLoading }) => {
+interface CategoryListProps {
+  categories: Array<Category>;
+  isLoading: boolean;
+}
+
+const CategoryList: React.FC<CategoryListProps> = ({
+  categories,
+  isLoading,
+}) => {
   const navigate = useNavigate();
 
   if (isLoading) {
     return (
       <div className="flex flex-wrap">
         {Array(6)
-          .fill()
+          .fill(1)
           .map((_, index) => (
             <CategorySkeleton key={index} />
           ))}

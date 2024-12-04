@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchNoteById, fetchCategories, fetchFavorites } from "../api/api";
 import NoteItem from "../components/notes/NoteItem";
 import { noteImgUrl } from "../utils/utils";
+import { Category, Favorite } from "../utils/types";
 
 const NotePage = () => {
   const { id } = useParams();
@@ -51,10 +52,10 @@ const NotePage = () => {
 
   const note = noteData.note;
   const category = categoriesData.categories.find(
-    (cat) => cat._id === note.categoryId
+    (cat: Category) => cat._id === note.categoryId
   );
   const isFavorite = favoritesData.favorites.some(
-    (fav) => fav.noteId === note._id
+    (fav: Favorite) => fav.noteId === note._id
   );
 
   return (

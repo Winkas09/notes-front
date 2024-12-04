@@ -1,4 +1,6 @@
 const BASE_URL = 'http://localhost:3000';
+import { Category, Favorite, Note } from "../utils/types";
+
 
 export const fetchNotes = async () => {
     const response = await fetch(`${BASE_URL}/api/note`);
@@ -20,7 +22,7 @@ export const fetchNotesByCategoryId = async (categoryId:string) => {
     return data;
 };
 
-export const addNote = async (note) => {
+export const addNote = async (note: Note) => {
     const response = await fetch(`${BASE_URL}/api/note`, {
         method: 'POST',
         headers: {
@@ -31,7 +33,7 @@ export const addNote = async (note) => {
     return response.json();
 }
 
-export const updateNote = async (note) => {
+export const updateNote = async (note: Note) => {
     const response = await fetch(`${BASE_URL}/api/note/${note._id}`, {
         method: 'PATCH',
         headers: {
@@ -54,7 +56,7 @@ export const fetchCategories = async () => {
     return response.json();
 };
 
-export const addCategory = async (category) => {
+export const addCategory = async (category: Category) => {
     const response = await fetch(`${BASE_URL}/api/category`, {
         method: 'POST',
         headers: {
@@ -77,7 +79,7 @@ export const fetchFavorites = async () => {
     return response.json();
 }
 
-export const toggleFavorite = async ({ noteId }) => {
+export const toggleFavorite = async ({ noteId }: Favorite) => {
     const response = await fetch(`${BASE_URL}/api/favorites/toggle`, {
         method: 'POST',
         headers: {

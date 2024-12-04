@@ -5,11 +5,16 @@ import NotesList from "../notes/NotesList";
 import { useState } from "react";
 import Modal from "../../utils/Modal";
 
-const CategoryItem = ({ categoryId }) => {
+interface CategoryItemProps {
+  categoryId?: string;
+}
+
+const CategoryItem: React.FC<CategoryItemProps> = ({ categoryId }) => {
   const navigate = useNavigate();
   const { data, isLoading, error } = useQuery({
     queryKey: ["notes", categoryId],
     queryFn: () => fetchNotesByCategoryId(categoryId),
+    enabled: !!categoryId,
   });
 
   console.log("🚀 ~ CategoryItem ~ categoryId:", categoryId);
@@ -68,7 +73,7 @@ const CategoryItem = ({ categoryId }) => {
       >
         Delete Category
       </button>
-      <NotesList notes={data?.notes} />
+      <NotesList notes={data?.notes} isLoading={isLoading} />
       <Modal
         isOpen={isModalOpen}
         onClose={closeModalHandler}

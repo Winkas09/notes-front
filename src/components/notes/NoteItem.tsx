@@ -4,8 +4,15 @@ import { useNavigate } from "react-router-dom";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import Modal from "../../utils/Modal";
 import { useState } from "react";
+import { Category, Note } from "../../utils/types";
 
-const NoteItem = ({ note, category, isFavorite }) => {
+interface NoteItemProps {
+  note: Note;
+  category: Category;
+  isFavorite: boolean;
+}
+
+const NoteItem: React.FC<NoteItemProps> = ({ note, category, isFavorite }) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
@@ -18,7 +25,7 @@ const NoteItem = ({ note, category, isFavorite }) => {
     mutationFn: toggleFavorite,
     mutationKey: ["toggleFavorite"],
     onSuccess: () => {
-      queryClient.invalidateQueries(["favorites"]);
+      queryClient.invalidateQueries({ queryKey: ["favorites"] });
     },
   });
 
