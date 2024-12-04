@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import CategorySkeleton from "../../utils/CategorySkeleton";
-import { Category } from "../../utils/types";
+import { Category } from "../../types/types";
 
 interface CategoryListProps {
   categories: Array<Category>;

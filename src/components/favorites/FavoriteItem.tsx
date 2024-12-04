@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Favorite } from "../../utils/types";
+import { Favorite } from "../../types/types";
 
 interface FavoriteItemProps {
   favorite: Favorite & { noteTitle?: string };

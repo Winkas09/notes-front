@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchNoteById, fetchCategories, fetchFavorites } from "../api/api";
 import NoteItem from "../components/notes/NoteItem";
 import { noteImgUrl } from "../utils/utils";
-import { Category, Favorite } from "../utils/types";
+import { Category, Favorite } from "../types/types";
 
 const NotePage = () => {
   const { id } = useParams();

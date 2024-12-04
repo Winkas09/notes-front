@@ -6,7 +6,7 @@ import { useState } from "react";
 import Modal from "../../utils/Modal";
 
 interface CategoryItemProps {
-  categoryId?: string;
+  categoryId: string;
 }
 
 const CategoryItem: React.FC<CategoryItemProps> = ({ categoryId }) => {

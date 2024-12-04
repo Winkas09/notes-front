@@ -1,7 +1,13 @@
-import React, { createContext, useReducer, ReactNode } from "react";
-import { themeReducer, initialState } from "./themeReducer";
+import { createContext, Dispatch, ReactNode, useReducer } from "react";
+import { initialState, themeReducer } from "./themeReducer";
+import { ThemeAction, ThemeState } from "../types/types";
 
-const ThemeContext = createContext(null);
+interface ThemeContextType {
+  state: ThemeState;
+  dispatch: Dispatch<ThemeAction>;
+}
+
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(themeReducer, initialState);

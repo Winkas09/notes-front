@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import Modal from "../../utils/Modal";
 import { useState } from "react";
-import { Category, Note } from "../../utils/types";
+import { Category, Note } from "../../types/types";
 
 interface NoteItemProps {
   note: Note;
