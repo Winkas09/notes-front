@@ -6,7 +6,7 @@ import tailwindcss from "tailwindcss";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: "/",
+  base: "/notes-front/",
   css: {
     postcss: {
       plugins: [tailwindcss()],
