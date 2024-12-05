@@ -60,9 +60,9 @@ const CategoryItem: React.FC<CategoryItemProps> = ({ categoryId }) => {
   }
 
   return (
-    <div>
+    <div className="p-4 bg-gray-300 dark:bg-gray-600 min-h-screen">
       <button
-        className="m-4 p-2 bg-gray-500 text-white rounded hover:bg-gray-700"
+        className="m-4 p-2 bg-gray-500 text-white rounded dark:bg-gray-400 dark:text-black hover:bg-gray-800 dark:hover:bg-gray-300"
         onClick={() => navigate("/categories")}
       >
         Back to Categories
@@ -73,7 +73,9 @@ const CategoryItem: React.FC<CategoryItemProps> = ({ categoryId }) => {
       >
         Delete Category
       </button>
-      <NotesList notes={data?.notes} isLoading={isLoading} />
+      <div className="flex flex-wrap">
+        <NotesList notes={data?.notes} isLoading={isLoading} />
+      </div>
       <Modal
         isOpen={isModalOpen}
         onClose={closeModalHandler}
