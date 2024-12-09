@@ -91,6 +91,8 @@ export const toggleFavorite = async ({ noteId }: Pick<Favorite, "noteId">) => {
 
 }
 
+// prideti delete
+
 export const searchNotes = async (query: string) => {
     const response = await fetch(`${BASE_URL}/api/note/search?query=${query}`);
     return response.json();
