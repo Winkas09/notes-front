@@ -15,14 +15,14 @@ import { ThemeProvider } from "./theme/ThemeContext";
 import SearchResultsPage from "./Pages/SearchResultsPage";
 import { AuthProvider, AuthContext } from "./context/AuthContext";
 import LoginPage from "./Pages/LoginPage";
-import RegisterPage from "./Pages/RegisterPage";
 import { useContext } from "react";
+import AuthPage from "./Pages/AuthPage";
 
 const queryClient = new QueryClient({});
 
 const PrivateRoute = ({ children }: { children: JSX.Element }) => {
   const { isAuthenticated } = useContext(AuthContext);
-  return isAuthenticated ? children : <Navigate to="/login" />;
+  return isAuthenticated ? children : <Navigate to="/auth" />;
 };
 
 function App() {
@@ -33,8 +33,7 @@ function App() {
           <Navbar />
           <Routes>
             {/* Public Routes */}
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/login" element={<LoginPage />} />
+            <Route path="/auth" element={<AuthPage />} />
 
             {/* Protected Routes */}
             <Route

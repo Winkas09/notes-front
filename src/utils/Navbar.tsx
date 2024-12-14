@@ -3,11 +3,13 @@ import { LightModeIcon, DarkModeIcon } from "../utils/utils";
 import { NavLink, useNavigate } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import styles from "../styles/NavBar.module.scss";
+import { useAuth } from "../context/AuthContext";
 
 export function Navbar() {
   const [darkMode, setDarkMode] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -100,6 +102,14 @@ export function Navbar() {
             >
               Create Note
             </NavLink>
+            {isAuthenticated && (
+              <button
+                onClick={logout}
+                className="p-1 my-1 text-sm text-white transition-colors duration-300 transform rounded-lg bg-red-500 hover:bg-red-700 md:mx-2 md:my-0"
+              >
+                Logout
+              </button>
+            )}
           </div>
 
           <form

@@ -1,4 +1,11 @@
-import React, { createContext, useState, useContext, ReactNode } from "react";
+import React, {
+  createContext,
+  useState,
+  useContext,
+  ReactNode,
+  useEffect,
+} from "react";
+import { useNavigate } from "react-router-dom";
 
 interface AuthContextProps {
   isAuthenticated: boolean;
@@ -8,18 +15,27 @@ interface AuthContextProps {
     email: string,
     password: string
   ) => Promise<void>;
+  logout: () => void;
 }
 
 export const AuthContext = createContext<AuthContextProps>({
   isAuthenticated: false,
   login: async () => {},
   register: async () => {},
+  logout: () => {},
 });
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+    return localStorage.getItem("isAuthenticated") === "true";
+  });
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.setItem("isAuthenticated", String(isAuthenticated));
+  }, [isAuthenticated]);
 
   const login = async (email: string, password: string) => {
     const response = await fetch("http://localhost:3000/api/auth/login", {
@@ -29,6 +45,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     });
     if (response.ok) {
       setIsAuthenticated(true);
+      navigate("/"); // Redirect to homepage
     } else {
       throw new Error("Login failed");
     }
@@ -44,13 +61,21 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, email, password }),
     });
-    if (!response.ok) {
+    if (response.ok) {
+      navigate("/auth"); // Redirect to login form
+    } else {
       throw new Error("Registration failed");
     }
   };
 
+  const logout = () => {
+    setIsAuthenticated(false);
+    localStorage.removeItem("isAuthenticated");
+    navigate("/auth");
+  };
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, register }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );
